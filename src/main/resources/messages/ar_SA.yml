@@ -1,0 +1,38 @@
+# Arabic (Saudi Arabia) Language File
+language:
+  name: "العربية"
+  code: "ar_SA"
+
+# General messages
+general:
+  language_detected: "§aتم اكتشاف اللغة: %s"
+  prefix: "§6[فيث بريك]§r"
+
+# Commands
+commands:
+  no_permission: "§cليس لديك صلاحية لاستخدام هذا الأمر!"
+  player_only: "§cهذا الأمر يمكن استخدامه من قبل اللاعبين فقط!"
+  
+  language:
+    current: "§aاللغة الحالية: §e%s"
+    available: "§aاللغات المتاحة:"
+    changed: "§aتم تغيير اللغة إلى: §e%s"
+    invalid: "§cرمز لغة غير صالح: %s"
+  
+  non_muslim:
+    opted_out: "§aلقد اخترت عدم المشاركة في إجراءات وقت الصلاة."
+    opted_in: "§aسوف تتلقى الآن إشعارات وقت الصلاة."
+
+# Prayer messages
+prayer:
+  kick_message: "§cحان وقت صلاة %s! يرجى أخذ استراحة."
+  rejoin_warning: "§cيمكنك العودة بعد %s دقيقة."
+  reminder: "§e⏰ تذكير: حان وقت صلاة %s!"
+  
+# Prayer names
+prayers:
+  Fajr: "الفجر"
+  Dhuhr: "الظهر"
+  Asr: "العصر"
+  Maghrib: "المغرب"
+  Isha: "العشاء"

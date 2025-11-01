@@ -2,13 +2,21 @@ name: FaithBreak
 version: '1.2.1'
 main: com.faithBreak.FaithBreak
 api-version: '1.21'
-authors: CiscoCodes
+authors: [CiscoCodes]
 commands:
   non-muslim:
     description: Toggle opting out of prayer time kicks and reminders.
     usage: /non-muslim
     permission: faithbreak.nonmuslim
+  language:
+    description: Change your language preference.
+    usage: /language [language_code]
+    aliases: [lang]
+    permission: faithbreak.language
 permissions:
   faithbreak.nonmuslim:
     description: Allows players to use the /non-muslim command to opt out of prayer time actions.
+    default: true
+  faithbreak.language:
+    description: Allows players to change their language preference.
     default: true

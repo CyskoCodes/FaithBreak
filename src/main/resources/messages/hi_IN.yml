@@ -1,0 +1,38 @@
+# Hindi (India) Language File
+language:
+  name: "हिन्दी"
+  code: "hi_IN"
+
+# General messages
+general:
+  language_detected: "§aभाषा का पता चला: %s"
+  prefix: "§6[फेथब्रेक]§r"
+
+# Commands
+commands:
+  no_permission: "§cआपके पास इस कमांड का उपयोग करने की अनुमति नहीं है!"
+  player_only: "§cयह कमांड केवल खिलाड़ियों द्वारा उपयोग किया जा सकता है!"
+  
+  language:
+    current: "§aवर्तमान भाषा: §e%s"
+    available: "§aउपलब्ध भाषाएँ:"
+    changed: "§aभाषा बदलकर की गई: §e%s"
+    invalid: "§cअमान्य भाषा कोड: %s"
+  
+  non_muslim:
+    opted_out: "§aआपने नमाज़ के समय की कार्रवाइयों से ऑप्ट आउट कर दिया है।"
+    opted_in: "§aअब आपको नमाज़ के समय की सूचनाएं मिलेंगी।"
+
+# Prayer messages
+prayer:
+  kick_message: "§cयह %s नमाज़ का समय है! कृपया विराम लें।"
+  rejoin_warning: "§cआप %s मिनट में फिर से शामिल हो सकते हैं।"
+  reminder: "§e⏰ अनुस्मारक: यह %s नमाज़ का समय है!"
+  
+# Prayer names
+prayers:
+  Fajr: "फज्र"
+  Dhuhr: "ज़ुहर"
+  Asr: "अस्र"
+  Maghrib: "मग़रिब"
+  Isha: "इशा"

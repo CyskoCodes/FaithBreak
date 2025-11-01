@@ -1,0 +1,38 @@
+# Dutch (Netherlands) Language File
+language:
+  name: "Nederlands"
+  code: "nl_NL"
+
+# General messages
+general:
+  language_detected: "§aTaal gedetecteerd: %s"
+  prefix: "§6[FaithBreak]§r"
+
+# Commands
+commands:
+  no_permission: "§cJe hebt geen toestemming om dit commando te gebruiken!"
+  player_only: "§cDit commando kan alleen door spelers worden gebruikt!"
+  
+  language:
+    current: "§aHuidige taal: §e%s"
+    available: "§aBeschikbare talen:"
+    changed: "§aTaal gewijzigd naar: §e%s"
+    invalid: "§cOngeldige taalcode: %s"
+  
+  non_muslim:
+    opted_out: "§aJe hebt je afgemeld voor gebedstijd acties."
+    opted_in: "§aJe ontvangt nu gebedstijd meldingen."
+
+# Prayer messages
+prayer:
+  kick_message: "§cHet is %s gebedstijd! Neem alsjeblieft een pauze."
+  rejoin_warning: "§cJe kunt over %s minuten weer deelnemen."
+  reminder: "§e⏰ Herinnering: Het is %s gebedstijd!"
+  
+# Prayer names
+prayers:
+  Fajr: "Fajr"
+  Dhuhr: "Dhuhr"
+  Asr: "Asr"
+  Maghrib: "Maghrib"
+  Isha: "Isha"

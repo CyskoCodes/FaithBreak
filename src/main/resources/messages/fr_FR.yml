@@ -1,0 +1,38 @@
+# French (France) Language File
+language:
+  name: "Français"
+  code: "fr_FR"
+
+# General messages
+general:
+  language_detected: "§aLangue détectée: %s"
+  prefix: "§6[FaithBreak]§r"
+
+# Commands
+commands:
+  no_permission: "§cVous n'avez pas la permission d'utiliser cette commande!"
+  player_only: "§cCette commande ne peut être utilisée que par les joueurs!"
+  
+  language:
+    current: "§aLangue actuelle: §e%s"
+    available: "§aLangues disponibles:"
+    changed: "§aLangue changée en: §e%s"
+    invalid: "§cCode de langue invalide: %s"
+  
+  non_muslim:
+    opted_out: "§aVous avez choisi de ne pas participer aux actions de temps de prière."
+    opted_in: "§aVous recevrez maintenant des notifications de temps de prière."
+
+# Prayer messages
+prayer:
+  kick_message: "§cC'est l'heure de la prière %s! Veuillez prendre une pause."
+  rejoin_warning: "§cVous pouvez vous reconnecter dans %s minutes."
+  reminder: "§e⏰ Rappel: C'est l'heure de la prière %s!"
+  
+# Prayer names
+prayers:
+  Fajr: "Fajr"
+  Dhuhr: "Dhuhr"
+  Asr: "Asr"
+  Maghrib: "Maghrib"
+  Isha: "Isha"

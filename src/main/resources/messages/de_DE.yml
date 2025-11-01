@@ -1,0 +1,38 @@
+# German (Germany) Language File
+language:
+  name: "Deutsch"
+  code: "de_DE"
+
+# General messages
+general:
+  language_detected: "§aErkannte Sprache: %s"
+  prefix: "§6[FaithBreak]§r"
+
+# Commands
+commands:
+  no_permission: "§cDu hast keine Berechtigung, diesen Befehl zu verwenden!"
+  player_only: "§cDieser Befehl kann nur von Spielern verwendet werden!"
+  
+  language:
+    current: "§aAktuelle Sprache: §e%s"
+    available: "§aVerfügbare Sprachen:"
+    changed: "§aSprache geändert zu: §e%s"
+    invalid: "§cUngültiger Sprachcode: %s"
+  
+  non_muslim:
+    opted_out: "§aDu hast dich von Gebetszeitaktionen abgemeldet."
+    opted_in: "§aDu erhältst jetzt Gebetszeitbenachrichtigungen."
+
+# Prayer messages
+prayer:
+  kick_message: "§cEs ist %s Gebetszeit! Bitte mache eine Pause."
+  rejoin_warning: "§cDu kannst in %s Minuten wieder beitreten."
+  reminder: "§e⏰ Erinnerung: Es ist %s Gebetszeit!"
+  
+# Prayer names
+prayers:
+  Fajr: "Fadschr"
+  Dhuhr: "Zuhr"
+  Asr: "Asr"
+  Maghrib: "Maghrib"
+  Isha: "Ischa"

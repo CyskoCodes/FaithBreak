@@ -1,0 +1,38 @@
+# English (United States) Language File
+language:
+  name: "English"
+  code: "en_US"
+
+# General messages
+general:
+  language_detected: "§aLanguage detected: %s"
+  prefix: "§6[FaithBreak]§r"
+
+# Commands
+commands:
+  no_permission: "§cYou don't have permission to use this command!"
+  player_only: "§cThis command can only be used by players!"
+  
+  language:
+    current: "§aCurrent language: §e%s"
+    available: "§aAvailable languages:"
+    changed: "§aLanguage changed to: §e%s"
+    invalid: "§cInvalid language code: %s"
+  
+  non_muslim:
+    opted_out: "§aYou have opted out of prayer time actions."
+    opted_in: "§aYou will now receive prayer time notifications."
+
+# Prayer messages
+prayer:
+  kick_message: "§cIt's %s prayer time! Please take a break."
+  rejoin_warning: "§cYou can rejoin in %s minutes."
+  reminder: "§e⏰ Reminder: It's %s prayer time!"
+  
+# Prayer names
+prayers:
+  Fajr: "Fajr"
+  Dhuhr: "Dhuhr"
+  Asr: "Asr"
+  Maghrib: "Maghrib"
+  Isha: "Isha"

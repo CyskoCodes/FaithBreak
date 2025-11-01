@@ -1,0 +1,38 @@
+# Indonesian (Indonesia) Language File
+language:
+  name: "Bahasa Indonesia"
+  code: "id_ID"
+
+# General messages
+general:
+  language_detected: "§aBahasa terdeteksi: %s"
+  prefix: "§6[FaithBreak]§r"
+
+# Commands
+commands:
+  no_permission: "§cAnda tidak memiliki izin untuk menggunakan perintah ini!"
+  player_only: "§cPerintah ini hanya dapat digunakan oleh pemain!"
+  
+  language:
+    current: "§aBahasa saat ini: §e%s"
+    available: "§aBahasa yang tersedia:"
+    changed: "§aBahasa diubah ke: §e%s"
+    invalid: "§cKode bahasa tidak valid: %s"
+  
+  non_muslim:
+    opted_out: "§aAnda telah memilih keluar dari tindakan waktu sholat."
+    opted_in: "§aAnda sekarang akan menerima notifikasi waktu sholat."
+
+# Prayer messages
+prayer:
+  kick_message: "§cIni waktu sholat %s! Silakan istirahat."
+  rejoin_warning: "§cAnda dapat bergabung kembali dalam %s menit."
+  reminder: "§e⏰ Pengingat: Ini waktu sholat %s!"
+  
+# Prayer names
+prayers:
+  Fajr: "Subuh"
+  Dhuhr: "Dzuhur"
+  Asr: "Ashar"
+  Maghrib: "Maghrib"
+  Isha: "Isya"

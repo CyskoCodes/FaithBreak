@@ -30,6 +30,9 @@ import org.bukkit.scheduler.BukkitTask;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.faithBreak.i18n.LanguageManager;
+import com.faithBreak.listeners.PlayerJoinListener;
+import com.faithBreak.commands.LanguageCommand;
 
 public final class FaithBreak extends JavaPlugin implements Listener {
 
@@ -42,6 +45,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
     private final Map<String, Long> ipCacheTimestamps = new ConcurrentHashMap<>();
     private BukkitTask prayerTimeChecker;
     private boolean debugMode = false;
+    private LanguageManager languageManager;
     private static final int PRAYER_BREAK_DURATION = 12 * 60 * 1000; // 12 minutes in milliseconds
     private static final long LOCATION_CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -53,8 +57,12 @@ public final class FaithBreak extends JavaPlugin implements Listener {
         // Load debug mode setting from config
         debugMode = getConfig().getBoolean("debug-mode", false);
 
+        // Initialize language manager
+        languageManager = new LanguageManager(this);
+
         // Register events
         getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(this, languageManager), this);
 
         // Register /non-muslim command
         this.getCommand("non-muslim").setExecutor((sender, command, label, args) -> {
@@ -69,15 +77,20 @@ public final class FaithBreak extends JavaPlugin implements Listener {
 
             if (nonMuslimPlayers.contains(playerId)) {
                 nonMuslimPlayersMap.remove(playerId);
-                message = "§aYou will now receive prayer time notifications.";
+                message = languageManager.getMessage(player, "commands.non_muslim.opted_in");
             } else {
                 nonMuslimPlayersMap.put(playerId, true);
-                message = "§aYou have opted out of prayer time actions.";
+                message = languageManager.getMessage(player, "commands.non_muslim.opted_out");
             }
 
             player.sendMessage(net.kyori.adventure.text.Component.text(message));
             return true;
         });
+
+        // Register /language command
+        LanguageCommand languageCommand = new LanguageCommand(this, languageManager);
+        this.getCommand("language").setExecutor(languageCommand);
+        this.getCommand("language").setTabCompleter(languageCommand);
 
         // Start prayer time checker task
         startPrayerTimeChecker();
@@ -95,6 +108,10 @@ public final class FaithBreak extends JavaPlugin implements Listener {
         getLogger().info("FaithBreak has been disabled!");
     }
 
+    public LanguageManager getLanguageManager() {
+        return languageManager;
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -108,9 +125,9 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             if (currentTime - kickTime < PRAYER_BREAK_DURATION) {
                 // Break time hasn't passed yet, kick the player again
                 long remainingTime = (kickTime + PRAYER_BREAK_DURATION - currentTime) / 1000 / 60;
-                player.kick(net.kyori.adventure.text.Component.text(
-                        "§cIt's prayer time! Please take a break.\n§cYou can rejoin in " + remainingTime
-                                + " minutes."));
+                String kickMsg = languageManager.getMessage(player, "prayer.kick_message", "prayer time");
+                String rejoinMsg = languageManager.getMessage(player, "prayer.rejoin_warning", String.valueOf(remainingTime));
+                player.kick(net.kyori.adventure.text.Component.text(kickMsg + "\n" + rejoinMsg));
                 return;
             } else {
                 // Break time has passed, remove from kicked list
@@ -154,10 +171,10 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             if (currentTime - kickTime < PRAYER_BREAK_DURATION) {
                 // Break time hasn't passed yet, deny login
                 long remainingTime = (kickTime + PRAYER_BREAK_DURATION - currentTime) / 1000 / 60;
+                String kickMsg = languageManager.getMessage(player, "prayer.kick_message", "prayer time");
+                String rejoinMsg = languageManager.getMessage(player, "prayer.rejoin_warning", String.valueOf(remainingTime));
                 event.disallow(PlayerLoginEvent.Result.KICK_OTHER,
-                        net.kyori.adventure.text.Component.text(
-                                "§cIt's prayer time! Please take a break.\n§cYou can rejoin in " + remainingTime
-                                        + " minutes."));
+                        net.kyori.adventure.text.Component.text(kickMsg + "\n" + rejoinMsg));
             } else {
                 // Break time has passed, remove from kicked list
                 kickedPlayers.remove(playerId);

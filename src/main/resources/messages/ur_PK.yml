@@ -1,0 +1,38 @@
+# Urdu (Pakistan) Language File
+language:
+  name: "اردو"
+  code: "ur_PK"
+
+# General messages
+general:
+  language_detected: "§aزبان کا پتہ چلا: %s"
+  prefix: "§6[فیتھ بریک]§r"
+
+# Commands
+commands:
+  no_permission: "§cآپ کو اس کمانڈ کا استعمال کرنے کی اجازت نہیں ہے!"
+  player_only: "§cیہ کمانڈ صرف کھلاڑی استعمال کر سکتے ہیں!"
+  
+  language:
+    current: "§aموجودہ زبان: §e%s"
+    available: "§aدستیاب زبانیں:"
+    changed: "§aزبان تبدیل ہو گئی: §e%s"
+    invalid: "§cغلط زبان کا کوڈ: %s"
+  
+  non_muslim:
+    opted_out: "§aآپ نے نماز کے وقت کی کارروائیوں سے آپٹ آؤٹ کر دیا ہے۔"
+    opted_in: "§aاب آپ کو نماز کے وقت کی اطلاعات ملیں گی۔"
+
+# Prayer messages
+prayer:
+  kick_message: "§c%s نماز کا وقت ہے! براہ کرم وقفہ لیں۔"
+  rejoin_warning: "§cآپ %s منٹ میں دوبارہ شامل ہو سکتے ہیں۔"
+  reminder: "§e⏰ یاد دہانی: %s نماز کا وقت ہے!"
+  
+# Prayer names
+prayers:
+  Fajr: "فجر"
+  Dhuhr: "ظہر"
+  Asr: "عصر"
+  Maghrib: "مغرب"
+  Isha: "عشاء"

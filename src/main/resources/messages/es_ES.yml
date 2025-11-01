@@ -1,0 +1,38 @@
+# Spanish (Spain) Language File
+language:
+  name: "Español"
+  code: "es_ES"
+
+# General messages
+general:
+  language_detected: "§aIdioma detectado: %s"
+  prefix: "§6[FaithBreak]§r"
+
+# Commands
+commands:
+  no_permission: "§c¡No tienes permiso para usar este comando!"
+  player_only: "§c¡Este comando solo puede ser usado por jugadores!"
+  
+  language:
+    current: "§aIdioma actual: §e%s"
+    available: "§aIdiomas disponibles:"
+    changed: "§aIdioma cambiado a: §e%s"
+    invalid: "§cCódigo de idioma inválido: %s"
+  
+  non_muslim:
+    opted_out: "§aHas optado por no participar en las acciones de tiempo de oración."
+    opted_in: "§aAhora recibirás notificaciones de tiempo de oración."
+
+# Prayer messages
+prayer:
+  kick_message: "§c¡Es hora de la oración %s! Por favor, toma un descanso."
+  rejoin_warning: "§cPuedes volver a unirte en %s minutos."
+  reminder: "§e⏰ Recordatorio: ¡Es hora de la oración %s!"
+  
+# Prayer names
+prayers:
+  Fajr: "Fajr"
+  Dhuhr: "Dhuhr"
+  Asr: "Asr"
+  Maghrib: "Maghrib"
+  Isha: "Isha"

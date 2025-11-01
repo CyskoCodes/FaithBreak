@@ -1,0 +1,38 @@
+# Polish (Poland) Language File
+language:
+  name: "Polski"
+  code: "pl_PL"
+
+# General messages
+general:
+  language_detected: "§aWykryto język: %s"
+  prefix: "§6[FaithBreak]§r"
+
+# Commands
+commands:
+  no_permission: "§cNie masz uprawnień do użycia tej komendy!"
+  player_only: "§cTa komenda może być użyta tylko przez graczy!"
+  
+  language:
+    current: "§aObecny język: §e%s"
+    available: "§aDostępne języki:"
+    changed: "§aZmieniono język na: §e%s"
+    invalid: "§cNieprawidłowy kod języka: %s"
+  
+  non_muslim:
+    opted_out: "§aZrezygnowałeś z akcji związanych z czasem modlitwy."
+    opted_in: "§aTeraz będziesz otrzymywać powiadomienia o czasie modlitwy."
+
+# Prayer messages
+prayer:
+  kick_message: "§cTo czas modlitwy %s! Proszę zrobić przerwę."
+  rejoin_warning: "§cMożesz dołączyć ponownie za %s minut."
+  reminder: "§e⏰ Przypomnienie: To czas modlitwy %s!"
+  
+# Prayer names
+prayers:
+  Fajr: "Fadżr"
+  Dhuhr: "Zuhr"
+  Asr: "Asr"
+  Maghrib: "Maghrib"
+  Isha: "Isza"
