@@ -28,6 +28,7 @@ prayer:
   kick_message: "§c%s نماز کا وقت ہے! براہ کرم وقفہ لیں۔"
   rejoin_warning: "§cآپ %s منٹ میں دوبارہ شامل ہو سکتے ہیں۔"
   reminder: "§e⏰ یاد دہانی: %s نماز کا وقت ہے!"
+  learn_more: "مزید جانیں"
   
 # Prayer names
 prayers:

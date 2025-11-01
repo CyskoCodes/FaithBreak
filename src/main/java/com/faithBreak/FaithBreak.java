@@ -34,6 +34,11 @@ import com.faithBreak.i18n.LanguageManager;
 import com.faithBreak.listeners.PlayerJoinListener;
 import com.faithBreak.commands.LanguageCommand;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+
 public final class FaithBreak extends JavaPlugin implements Listener {
 
     private final Map<UUID, PlayerLocation> playerLocations = new ConcurrentHashMap<>();
@@ -112,6 +117,23 @@ public final class FaithBreak extends JavaPlugin implements Listener {
         return languageManager;
     }
 
+    private Component createKickMessageWithLink(Player player, String prayerName, long remainingMinutes) {
+        String kickMsg = languageManager.getMessage(player, "prayer.kick_message", prayerName);
+        String rejoinMsg = languageManager.getMessage(player, "prayer.rejoin_warning", String.valueOf(remainingMinutes));
+        String learnMoreText = languageManager.getMessage(player, "prayer.learn_more");
+        
+        // Create the main message
+        Component message = Component.text(kickMsg + "\n" + rejoinMsg + "\n\n");
+        
+        // Create clickable "Learn More" button
+        Component learnMoreButton = Component.text("[" + learnMoreText + "]")
+                .color(NamedTextColor.GOLD)
+                .decorate(TextDecoration.BOLD)
+                .clickEvent(ClickEvent.openUrl("https://modrinth.com/plugin/faithbreak"));
+        
+        return message.append(learnMoreButton);
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -125,9 +147,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             if (currentTime - kickTime < PRAYER_BREAK_DURATION) {
                 // Break time hasn't passed yet, kick the player again
                 long remainingTime = (kickTime + PRAYER_BREAK_DURATION - currentTime) / 1000 / 60;
-                String kickMsg = languageManager.getMessage(player, "prayer.kick_message", "prayer time");
-                String rejoinMsg = languageManager.getMessage(player, "prayer.rejoin_warning", String.valueOf(remainingTime));
-                player.kick(net.kyori.adventure.text.Component.text(kickMsg + "\n" + rejoinMsg));
+                player.kick(createKickMessageWithLink(player, "prayer time", remainingTime));
                 return;
             } else {
                 // Break time has passed, remove from kicked list
@@ -171,10 +191,8 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             if (currentTime - kickTime < PRAYER_BREAK_DURATION) {
                 // Break time hasn't passed yet, deny login
                 long remainingTime = (kickTime + PRAYER_BREAK_DURATION - currentTime) / 1000 / 60;
-                String kickMsg = languageManager.getMessage(player, "prayer.kick_message", "prayer time");
-                String rejoinMsg = languageManager.getMessage(player, "prayer.rejoin_warning", String.valueOf(remainingTime));
                 event.disallow(PlayerLoginEvent.Result.KICK_OTHER,
-                        net.kyori.adventure.text.Component.text(kickMsg + "\n" + rejoinMsg));
+                        createKickMessageWithLink(player, "prayer time", remainingTime));
             } else {
                 // Break time has passed, remove from kicked list
                 kickedPlayers.remove(playerId);

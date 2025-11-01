@@ -28,6 +28,7 @@ prayer:
   kick_message: "§cयह %s नमाज़ का समय है! कृपया विराम लें।"
   rejoin_warning: "§cआप %s मिनट में फिर से शामिल हो सकते हैं।"
   reminder: "§e⏰ अनुस्मारक: यह %s नमाज़ का समय है!"
+  learn_more: "और जानें"
   
 # Prayer names
 prayers:

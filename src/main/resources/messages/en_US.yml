@@ -28,6 +28,7 @@ prayer:
   kick_message: "§cIt's %s prayer time! Please take a break."
   rejoin_warning: "§cYou can rejoin in %s minutes."
   reminder: "§e⏰ Reminder: It's %s prayer time!"
+  learn_more: "Learn More"
   
 # Prayer names
 prayers:

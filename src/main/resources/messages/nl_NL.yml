@@ -28,6 +28,7 @@ prayer:
   kick_message: "§cHet is %s gebedstijd! Neem alsjeblieft een pauze."
   rejoin_warning: "§cJe kunt over %s minuten weer deelnemen."
   reminder: "§e⏰ Herinnering: Het is %s gebedstijd!"
+  learn_more: "Meer informatie"
   
 # Prayer names
 prayers:

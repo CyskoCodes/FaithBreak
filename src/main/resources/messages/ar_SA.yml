@@ -28,6 +28,7 @@ prayer:
   kick_message: "§cحان وقت صلاة %s! يرجى أخذ استراحة."
   rejoin_warning: "§cيمكنك العودة بعد %s دقيقة."
   reminder: "§e⏰ تذكير: حان وقت صلاة %s!"
+  learn_more: "معرفة المزيد"
   
 # Prayer names
 prayers:

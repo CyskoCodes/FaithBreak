@@ -28,6 +28,7 @@ prayer:
   kick_message: "§c¡Es hora de la oración %s! Por favor, toma un descanso."
   rejoin_warning: "§cPuedes volver a unirte en %s minutos."
   reminder: "§e⏰ Recordatorio: ¡Es hora de la oración %s!"
+  learn_more: "Más información"
   
 # Prayer names
 prayers:

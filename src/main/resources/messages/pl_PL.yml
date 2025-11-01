@@ -28,6 +28,7 @@ prayer:
   kick_message: "§cTo czas modlitwy %s! Proszę zrobić przerwę."
   rejoin_warning: "§cMożesz dołączyć ponownie za %s minut."
   reminder: "§e⏰ Przypomnienie: To czas modlitwy %s!"
+  learn_more: "Dowiedz się więcej"
   
 # Prayer names
 prayers:

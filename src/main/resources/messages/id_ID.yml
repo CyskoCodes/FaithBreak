@@ -28,6 +28,7 @@ prayer:
   kick_message: "§cIni waktu sholat %s! Silakan istirahat."
   rejoin_warning: "§cAnda dapat bergabung kembali dalam %s menit."
   reminder: "§e⏰ Pengingat: Ini waktu sholat %s!"
+  learn_more: "Pelajari Lebih Lanjut"
   
 # Prayer names
 prayers:
