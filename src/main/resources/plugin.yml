@@ -2,7 +2,7 @@ name: FaithBreak
 version: '1.2.1'
 main: com.faithBreak.FaithBreak
 api-version: '1.21'
-authors: [ CalastioTech ]
+authors: CiscoCodes
 commands:
   non-muslim:
     description: Toggle opting out of prayer time kicks and reminders.
