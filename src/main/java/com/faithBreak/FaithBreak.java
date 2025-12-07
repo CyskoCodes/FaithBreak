@@ -1,9 +1,10 @@
 package com.faithBreak;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -119,18 +120,19 @@ public final class FaithBreak extends JavaPlugin implements Listener {
 
     private Component createKickMessageWithLink(Player player, String prayerName, long remainingMinutes) {
         String kickMsg = languageManager.getMessage(player, "prayer.kick_message", prayerName);
-        String rejoinMsg = languageManager.getMessage(player, "prayer.rejoin_warning", String.valueOf(remainingMinutes));
+        String rejoinMsg = languageManager.getMessage(player, "prayer.rejoin_warning",
+                String.valueOf(remainingMinutes));
         String learnMoreText = languageManager.getMessage(player, "prayer.learn_more");
-        
+
         // Create the main message
         Component message = Component.text(kickMsg + "\n" + rejoinMsg + "\n\n");
-        
+
         // Create clickable "Learn More" button
         Component learnMoreButton = Component.text("[" + learnMoreText + "]")
                 .color(NamedTextColor.GOLD)
                 .decorate(TextDecoration.BOLD)
                 .clickEvent(ClickEvent.openUrl("https://modrinth.com/plugin/faithbreak"));
-        
+
         return message.append(learnMoreButton);
     }
 
@@ -376,8 +378,8 @@ public final class FaithBreak extends JavaPlugin implements Listener {
         UUID playerId = player.getUniqueId();
         PlayerLocation location = playerLocations.get(playerId);
 
+        // Check if player has opted out - skip all prayer actions
         if (nonMuslimPlayers.contains(playerId)) {
-            // Player has opted out, do nothing
             if (debugMode) {
                 getLogger().info("Player " + player.getName() + " has opted out of prayer actions, skipping.");
             }
@@ -401,7 +403,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                 }
             }.runTask(this);
         } else {
-            // Non-Middle Eastern player - just send a message
+            // Non-Middle Eastern player - send a reminder message
             new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -538,7 +540,8 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                 getLogger().info("[DEBUG] Trying ip-api.com service for IP: " + ipAddress);
             }
 
-            URL url = new URL("http://ip-api.com/json/" + ipAddress + "?fields=status,country,city,lat,lon,timezone");
+            URL url = new URI("http://ip-api.com/json/" + ipAddress + "?fields=status,country,city,lat,lon,timezone")
+                    .toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000); // Increased timeout to 10 seconds
@@ -595,7 +598,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                     getLogger().warning("[DEBUG] ip-api.com returned HTTP " + responseCode);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             if (debugMode) {
                 getLogger().log(Level.WARNING, "[DEBUG] Error with ip-api.com service for IP: " + ipAddress, e);
             } else {
@@ -612,7 +615,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                 getLogger().info("[DEBUG] Trying ipinfo.io service for IP: " + ipAddress);
             }
 
-            URL url = new URL("http://ipinfo.io/" + ipAddress + "/json");
+            URL url = new URI("http://ipinfo.io/" + ipAddress + "/json").toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000);
@@ -675,8 +678,9 @@ public final class FaithBreak extends JavaPlugin implements Listener {
 
             // Note: This service requires an API key for production use, but has a free
             // tier
-            URL url = new URL("http://ip-api.com/json/" + ipAddress); // Using ip-api as backup since ipgeolocation
-                                                                      // requires key
+            URL url = new URI("http://ip-api.com/json/" + ipAddress).toURL(); // Using ip-api as backup since
+                                                                              // ipgeolocation
+            // requires key
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000);
@@ -781,7 +785,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                 getLogger().info("[DEBUG] Calling prayer time API: " + apiUrl);
             }
 
-            URL url = new URL(apiUrl);
+            URL url = new URI(apiUrl).toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000); // 10 second timeout
@@ -864,7 +868,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             } else if (debugMode) {
                 getLogger().warning("[DEBUG] Prayer API returned non-200 status code: " + responseCode);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             if (debugMode) {
                 getLogger().log(Level.WARNING,
                         "[DEBUG] Error getting prayer times for location: " + latitude + ", " + longitude, e);

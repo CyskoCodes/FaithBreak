@@ -1,0 +1,38 @@
+ERROR ANALYSIS:
+This error is a `java.net.SocketTimeoutException: Connect timed out`.
+It means the plugin tried to connect to an external API (likely `api.aladhan.com` for prayer times) but failed to establish a connection within the timeout limit (currently 10 seconds).
+
+POSSIBLE CAUSES:
+1. The API (aladhan.com) is temporarily down or experiencing high traffic.
+2. The URL uses `http://` instead of `https://`; some servers block or delay non-secure connections.
+3. A firewall or network configuration on your server is blocking the outgoing connection.
+4. The DNS resolution for the API domain is slow.
+
+ORIGINAL ERROR LOG:
+[18:34:32 WARN]: [FaithBreak] Error getting prayer times for location: 30.0507, 31.2489
+java.net.SocketTimeoutException: Connect timed out
+        at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:546) ~[?:?]
+        at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592) ~[?:?]
+        at java.base/java.net.Socket.connect(Socket.java:751) ~[?:?]
+        at java.base/sun.net.NetworkClient.doConnect(NetworkClient.java:178) ~[?:?]
+        at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:531) ~[?:?]
+        at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:636) ~[?:?]
+        at java.base/sun.net.www.http.HttpClient.<init>(HttpClient.java:282) ~[?:?]
+        at java.base/sun.net.www.http.HttpClient.New(HttpClient.java:386) ~[?:?]
+        at java.base/sun.net.www.http.HttpClient.New(HttpClient.java:408) ~[?:?]
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1324) ~[?:?]
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1257) ~[?:?]
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1143) ~[?:?]
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:1072) ~[?:?]
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1705) ~[?:?]
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1629) ~[?:?]
+        at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:531) ~[?:?]
+        at FaithBreak-1.2.1.jar/com.faithBreak.FaithBreak.getPrayerTimes(FaithBreak.java:751) ~[FaithBreak-1.2.1.jar:?]
+        at FaithBreak-1.2.1.jar/com.faithBreak.FaithBreak.checkPrayerTimes(FaithBreak.java:250) ~[FaithBreak-1.2.1.jar:?]
+        at FaithBreak-1.2.1.jar/com.faithBreak.FaithBreak$2.run(FaithBreak.java:184) ~[FaithBreak-1.2.1.jar:?]
+        at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78) ~[paper-1.21.8.jar:1.21.8-60-29c8822]
+        at org.bukkit.craftbukkit.scheduler.CraftAsyncTask.run(CraftAsyncTask.java:57) ~[paper-1.21.8.jar:1.21.8-60-29c8822]
+        at com.destroystokyo.paper.ServerSchedulerReportingWrapper.run(ServerSchedulerReportingWrapper.java:22) ~[paper-1.21.8.jar:?]
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+        at java.base/java.lang.Thread.run(Thread.java:1583) ~[?:?]
