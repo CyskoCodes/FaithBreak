@@ -544,8 +544,8 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                     .toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setConnectTimeout(10000); // Increased timeout to 10 seconds
-            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000); // Increased timeout to 15 seconds
+            connection.setReadTimeout(15000);
 
             int responseCode = connection.getResponseCode();
             if (debugMode) {
@@ -615,11 +615,11 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                 getLogger().info("[DEBUG] Trying ipinfo.io service for IP: " + ipAddress);
             }
 
-            URL url = new URI("http://ipinfo.io/" + ipAddress + "/json").toURL();
+            URL url = new URI("https://ipinfo.io/" + ipAddress + "/json").toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setConnectTimeout(10000);
-            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(15000);
 
             int responseCode = connection.getResponseCode();
             if (debugMode) {
@@ -779,7 +779,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             // Use aladhan.com API for prayer times
             // Try method 4 (Umm Al-Qura University) which is commonly used in the Middle
             // East
-            String apiUrl = "http://api.aladhan.com/v1/timings/" + date +
+            String apiUrl = "https://api.aladhan.com/v1/timings/" + date +
                     "?latitude=" + latitude + "&longitude=" + longitude + "&method=4";
             if (debugMode) {
                 getLogger().info("[DEBUG] Calling prayer time API: " + apiUrl);
@@ -788,8 +788,8 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             URL url = new URI(apiUrl).toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setConnectTimeout(10000); // 10 second timeout
-            connection.setReadTimeout(10000); // 10 second read timeout
+            connection.setConnectTimeout(20000); // 20 second timeout
+            connection.setReadTimeout(20000); // 20 second read timeout
 
             int responseCode = connection.getResponseCode();
             if (debugMode) {
