@@ -1,7 +1,7 @@
 package com.faithBreak;
 
 import java.io.BufferedReader;
-
+import java.io.File;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -13,13 +13,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,13 +49,14 @@ public final class FaithBreak extends JavaPlugin implements Listener {
     private final Map<UUID, PlayerLocation> playerLocations = new ConcurrentHashMap<>();
     private final Map<UUID, Long> kickedPlayers = new ConcurrentHashMap<>();
     private final Set<UUID> processingPlayers = new HashSet<>();
-    private final Map<UUID, Boolean> nonMuslimPlayersMap = new ConcurrentHashMap<>();
-    private final Set<UUID> nonMuslimPlayers = nonMuslimPlayersMap.keySet();
+    private final Set<UUID> nonMuslimPlayers = ConcurrentHashMap.newKeySet();
     private final Map<String, PlayerLocation> ipLocationCache = new ConcurrentHashMap<>();
     private final Map<String, Long> ipCacheTimestamps = new ConcurrentHashMap<>();
     private BukkitTask prayerTimeChecker;
     private boolean debugMode = false;
     private LanguageManager languageManager;
+    private File optOutFile;
+    private FileConfiguration optOutConfig;
     private static final int PRAYER_BREAK_DURATION = 12 * 60 * 1000; // 12 minutes in milliseconds
     private static final long LOCATION_CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -65,6 +70,9 @@ public final class FaithBreak extends JavaPlugin implements Listener {
 
         // Initialize language manager
         languageManager = new LanguageManager(this);
+
+        // Load opted-out players from file
+        loadOptOutData();
 
         // Register events
         getServer().getPluginManager().registerEvents(this, this);
@@ -82,12 +90,15 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             String message;
 
             if (nonMuslimPlayers.contains(playerId)) {
-                nonMuslimPlayersMap.remove(playerId);
+                nonMuslimPlayers.remove(playerId);
                 message = languageManager.getMessage(player, "commands.non_muslim.opted_in");
             } else {
-                nonMuslimPlayersMap.put(playerId, true);
+                nonMuslimPlayers.add(playerId);
                 message = languageManager.getMessage(player, "commands.non_muslim.opted_out");
             }
+
+            // Save the opt-out data to file
+            saveOptOutData();
 
             player.sendMessage(net.kyori.adventure.text.Component.text(message));
             return true;
@@ -106,6 +117,9 @@ public final class FaithBreak extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+        // Save opt-out data before disabling
+        saveOptOutData();
+
         // Cancel tasks
         if (prayerTimeChecker != null) {
             prayerTimeChecker.cancel();
@@ -116,6 +130,59 @@ public final class FaithBreak extends JavaPlugin implements Listener {
 
     public LanguageManager getLanguageManager() {
         return languageManager;
+    }
+
+    private void loadOptOutData() {
+        optOutFile = new File(getDataFolder(), "optout.yml");
+        
+        if (!optOutFile.exists()) {
+            // Create the file if it doesn't exist
+            try {
+                getDataFolder().mkdirs();
+                optOutFile.createNewFile();
+            } catch (Exception e) {
+                getLogger().log(Level.WARNING, "Could not create optout.yml file", e);
+            }
+        }
+        
+        optOutConfig = YamlConfiguration.loadConfiguration(optOutFile);
+        
+        // Load the list of opted-out player UUIDs
+        List<String> optedOutList = optOutConfig.getStringList("opted-out-players");
+        for (String uuidStr : optedOutList) {
+            try {
+                UUID uuid = UUID.fromString(uuidStr);
+                nonMuslimPlayers.add(uuid);
+            } catch (IllegalArgumentException e) {
+                getLogger().warning("Invalid UUID in optout.yml: " + uuidStr);
+            }
+        }
+        
+        if (debugMode) {
+            getLogger().info("[DEBUG] Loaded " + nonMuslimPlayers.size() + " opted-out players from file");
+        }
+    }
+
+    private void saveOptOutData() {
+        if (optOutConfig == null || optOutFile == null) {
+            return;
+        }
+        
+        // Convert UUIDs to strings for storage
+        List<String> uuidStrings = nonMuslimPlayers.stream()
+                .map(UUID::toString)
+                .collect(Collectors.toList());
+        
+        optOutConfig.set("opted-out-players", uuidStrings);
+        
+        try {
+            optOutConfig.save(optOutFile);
+            if (debugMode) {
+                getLogger().info("[DEBUG] Saved " + nonMuslimPlayers.size() + " opted-out players to file");
+            }
+        } catch (Exception e) {
+            getLogger().log(Level.WARNING, "Could not save optout.yml file", e);
+        }
     }
 
     private Component createKickMessageWithLink(Player player, String prayerName, long remainingMinutes) {
