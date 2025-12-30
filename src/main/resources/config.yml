@@ -3,3 +3,7 @@
 # Debug mode - when set to true, detailed debug messages will be logged to console
 # Set to false to prevent console spam during normal operation
 debug-mode: false
+
+# Log player locations - when true, logs player country/city/timezone to console
+# Set to false to protect player privacy (default: false)
+log-player-locations: false

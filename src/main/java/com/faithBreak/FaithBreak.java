@@ -54,6 +54,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
     private final Map<String, Long> ipCacheTimestamps = new ConcurrentHashMap<>();
     private BukkitTask prayerTimeChecker;
     private boolean debugMode = false;
+    private boolean logPlayerLocations = false;
     private LanguageManager languageManager;
     private File optOutFile;
     private FileConfiguration optOutConfig;
@@ -67,6 +68,7 @@ public final class FaithBreak extends JavaPlugin implements Listener {
 
         // Load debug mode setting from config
         debugMode = getConfig().getBoolean("debug-mode", false);
+        logPlayerLocations = getConfig().getBoolean("log-player-locations", false);
 
         // Initialize language manager
         languageManager = new LanguageManager(this);
@@ -234,8 +236,10 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                         PlayerLocation location = getPlayerLocation(player.getAddress().getAddress().getHostAddress());
                         if (location != null) {
                             playerLocations.put(playerId, location);
-                            getLogger().info("Player " + player.getName() + " location detected: " +
-                                    location.country + ", " + location.city + ", Timezone: " + location.timezone);
+                            if (logPlayerLocations) {
+                                getLogger().info("Player " + player.getName() + " location detected: " +
+                                        location.country + ", " + location.city + ", Timezone: " + location.timezone);
+                            }
                         }
                     } catch (Exception e) {
                         getLogger().log(Level.WARNING, "Failed to get location for player: " + player.getName(), e);
@@ -464,8 +468,12 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                     if (player.isOnline()) {
                         player.kick(net.kyori.adventure.text.Component.text(
                                 "§cIt's " + prayerName + " prayer time! Please take a break."));
-                        getLogger().info("Player " + player.getName() + " from " + location.country + " kicked for "
-                                + prayerName + " prayer time.");
+                        if (logPlayerLocations) {
+                            getLogger().info("Player " + player.getName() + " from " + location.country + " kicked for "
+                                    + prayerName + " prayer time.");
+                        } else {
+                            getLogger().info("Player " + player.getName() + " kicked for " + prayerName + " prayer time.");
+                        }
                     }
                 }
             }.runTask(this);
@@ -477,9 +485,13 @@ public final class FaithBreak extends JavaPlugin implements Listener {
                     if (player.isOnline()) {
                         player.sendMessage(net.kyori.adventure.text.Component.text(
                                 "§e⏰ Reminder: It's " + prayerName + " prayer time!"));
-                        getLogger().info("Player " + player.getName() + " from "
-                                + (location != null ? location.country : "unknown location") + " received message for "
-                                + prayerName + " prayer time.");
+                        if (logPlayerLocations) {
+                            getLogger().info("Player " + player.getName() + " from "
+                                    + (location != null ? location.country : "unknown location") + " received reminder for "
+                                    + prayerName + " prayer time.");
+                        } else {
+                            getLogger().info("Player " + player.getName() + " received reminder for " + prayerName + " prayer time.");
+                        }
                     }
                 }
             }.runTask(this);
