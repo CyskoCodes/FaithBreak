@@ -1,6 +1,12 @@
-# 🕌 **FaithBreak v1.3.2 — Persistence & Privacy Update!** 🛡️
+# 🕌 **FaithBreak v1.3.1 — Persistence & Privacy Update!** 🛡️
 
-Warriors of faith, **v1.3.2** is here with **persistent opt-out preferences** and **enhanced privacy controls**! Your `/non-muslim` choice is now saved forever, and server admins have full control over location logging. 🚀
+### 🌟 **Join Our Discord for Giveaways & Events!** 🎮
+
+Join our **[Discord Server](https://discord.gg/snkKDmc89f)** 🔗 for monthly giveaways & events where you can win coupon codes or plugins like **[AstralSwords Premium](https://builtbybit.com/resources/astral-swords.81777/)** or **[TrimBlades](https://builtbybit.com/resources/trimblades.87033/)**! 🎨🚀
+
+---
+
+Warriors of faith, **v1.3.1** is here with **persistent opt-out preferences** and **enhanced privacy controls**! Your `/non-muslim` choice is now saved forever, and server admins have full control over location logging. 🚀
 
 ---
 
@@ -205,7 +211,7 @@ A: Copy any existing language file from `plugins/FaithBreak/messages/`, rename i
 
 ---
 
-## 🎯 **Why Update to v1.3.2?**
+## 🎯 **Why Update to v1.3.1?**
 
 **If you've experienced:**
 - Having to re-type `/non-muslim` after every server restart
