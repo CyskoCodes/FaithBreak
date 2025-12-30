@@ -1,6 +1,8 @@
-# 📖 Oh hey! You're actually reading this?! Let's gooo 🎉
+# 🕌 **FaithBreak v1.3.2 — Persistence & Privacy Update!** 🛡️
 
-Alright, here's how to use this plugin (super simple, I promise):
+Warriors of faith, **v1.3.2** is here with **persistent opt-out preferences** and **enhanced privacy controls**! Your `/non-muslim` choice is now saved forever, and server admins have full control over location logging. 🚀
+
+---
 
 ## ⚙️ How to Use
 1. 📥 Download the **latest release**
@@ -15,25 +17,70 @@ Alright, here's how to use this plugin (super simple, I promise):
 
 ---
 
+## ✨ **What's New in v1.3.2** ✨
+
+### 🎯 Major Improvements
+* **feat:** 💾 **PERSISTENT OPT-OUT** - `/non-muslim` preference now saved to file! Survives server restarts and player reconnects
+* **feat:** 🔒 **PRIVACY CONTROLS** - New `log-player-locations` config option (default: OFF) - no more location spam in console!
+* **feat:** 🎮 **UNIFIED COMMANDS** - All commands now under `/fb` for cleaner organization
+* **feat:** 🧪 **KICK TEST COMMAND** - `/fb kick <prayer>` lets admins test the kick screen without the 12-min timer
+* **fix:** 🔇 **SILENT BY DEFAULT** - Player locations no longer logged unless explicitly enabled
+
+### 🛡️ Why Persistent Opt-Out Matters
+- **One-time setup!** - Players only need to type `/non-muslim` once, ever
+- **Survives restarts** - Server reboots won't reset player preferences
+- **Respects player choice** - Your decision is remembered permanently
+
+### Previous Updates Still Included:
+* ✨ **10 Languages Supported**: English, Arabic, Urdu, Spanish, French, Indonesian, Hindi, German, Polish, Dutch
+* 🌍 **Automatic Language Detection**: Detects Minecraft client language on join
+* 🎨 **Rich Text Components**: Beautiful messages with Adventure API
+* 💾 **Persistent Preferences**: All choices saved across restarts
+
+---
+
 ## 🔍 What Does FaithBreak Do?
 
 FaithBreak is a unique Minecraft plugin that helps players take breaks during prayer times:
 
-- 🌍 **Smart Location Detection**: The plugin automatically detects each player's location based on their IP address
-- 🕰️ **Prayer Time Awareness**: Calculates accurate prayer times for the player's specific location
-- ⏱️ **Timely Reminders**: Two minutes before prayer time, players are gently kicked from the server
-- ⏳ **Break Duration**: Players can't rejoin for 12 minutes, giving them time for prayer or a short break
-- 🔗 **Learn More Button**: Kicked players see a clickable gold button that opens this page for more info!
-- 🌐 **Universal Respect**: Non-Muslim players are also encouraged to take regular breaks for well-being
+- 🌍 **Smart Location Detection**: Automatically detects each player's location based on their IP
+- 🕰️ **Prayer Time Awareness**: Calculates accurate prayer times for each player's specific location
+- ⏱️ **Timely Reminders**: Two minutes before prayer time, players are gently kicked
+- ⏳ **Break Duration**: Players can't rejoin for 12 minutes, giving time for prayer
 - 🌐 **Multi-Language Magic**: Messages automatically appear in each player's Minecraft language!
+- 🎯 **Player Choice**: Use `/non-muslim` to opt out permanently (saved across restarts!)
 
-The plugin works silently in the background with zero configuration needed. It uses geolocation services and prayer time APIs to ensure accuracy across different regions and timezones.
+The plugin works silently in the background with zero configuration needed.
+
+---
+
+## 🎮 Commands
+
+### Player Commands
+| Command | Description |
+|---------|-------------|
+| `/non-muslim` | Toggle opt-out of prayer kicks (saved permanently!) |
+| `/fb lang` | View current language and available options |
+| `/fb lang <code>` | Change your language (e.g., `/fb lang ar_SA`) |
+
+### Admin Commands (OP only)
+| Command | Description |
+|---------|-------------|
+| `/fb kick <prayer>` | Test the kick screen without the 12-min timer |
+
+**Examples:**
+```
+/fb lang ar_SA     → Switch to Arabic
+/fb lang ur_PK     → Switch to Urdu
+/fb kick Fajr      → Test Fajr kick screen (OP only)
+/non-muslim        → Toggle opt-out (saved forever!)
+```
 
 ---
 
 ## 🌍 Supported Languages (10 Total!)
 
-FaithBreak automatically detects your Minecraft client language and shows all messages in your language:
+FaithBreak automatically detects your Minecraft client language:
 
 - 🇬🇧 **English** (en_US)
 - 🇸🇦 **Arabic** (ar_SA) - العربية
@@ -46,26 +93,7 @@ FaithBreak automatically detects your Minecraft client language and shows all me
 - 🇵🇱 **Polish** (pl_PL) - Polski
 - 🇳🇱 **Dutch** (nl_NL) - Nederlands
 
-**Change your language manually**: Use `/language <code>` or `/lang <code>`  
-**View available languages**: Type `/language` to see all options
-
-**💡 Server Owners**: Want to add more languages? Simply create `[language-code].yml` files in the `plugins/FaithBreak/messages` folder with your translations!
-
----
-
-## 🎮 Player Commands
-
-- `/non-muslim` - Opt out of prayer time kicks (receive reminders instead)
-- `/language` or `/lang` - View your current language and available options
-- `/language <code>` - Change your language (e.g., `/language ar_SA` for Arabic)
-
-**Examples:**
-```
-/language ar_SA    → Switch to Arabic
-/lang ur_PK        → Switch to Urdu
-/language          → Show current language
-/non-muslim        → Toggle opt-out status
-```
+**💡 Server Owners**: Add more languages by creating `[code].yml` files in `plugins/FaithBreak/messages/`!
 
 ---
 
@@ -73,151 +101,129 @@ FaithBreak automatically detects your Minecraft client language and shows all me
 
 ### 🔔 What Happens During Prayer Time?
 
-**For Muslim Players (Middle Eastern Countries):**
-1. 2 minutes before prayer time, you're kicked from the server
-2. You see a message in your language with the prayer name
-3. A clickable **[Learn More]** button appears (opens this page!)
-4. You can rejoin after 12 minutes
+**For Middle Eastern Players:**
+1. 2 minutes before prayer → kicked from server
+2. See localized message with prayer name
+3. Link to this page for more info
+4. Can rejoin after 12 minutes
 
 **For Other Players:**
-- Receive a friendly reminder message in chat
+- Receive a friendly reminder in chat
 - No kick, just a gentle notification
 - Encourages healthy gaming breaks
 
 ### 🚫 Don't Want Prayer Notifications?
 
 No problem! Use `/non-muslim` to opt out:
-- You'll receive reminders instead of kicks
+- You won't receive kicks or reminders
 - Toggle on/off anytime
-- Your choice is saved permanently
+- **NEW: Your choice is saved permanently!**
 
-### 🌐 Automatic Language Detection
+### 🔒 Privacy First (NEW!)
 
-When you join the server:
-1. Plugin detects your Minecraft client language
-2. Automatically sets your preference
-3. All messages appear in your language
-4. You can change it manually anytime with `/language`
+By default, FaithBreak does NOT log player locations to console:
+- No more "Player X location detected: Country, City" spam
+- Enable `log-player-locations: true` in config only if needed
+- Your players' privacy is respected
 
-### 🔗 Clickable "Learn More" Button
+### 🧪 Test Mode for Admins (NEW!)
 
-When kicked for prayer time, you'll see:
+Want to see what players see when kicked?
 ```
-It's Fajr prayer time! Please take a break.
-You can rejoin in 12 minutes.
-
-[Learn More] ← Click this!
+/fb kick Fajr
 ```
-The gold button opens this Modrinth page so you can:
-- Understand how the plugin works
-- Learn about the `/non-muslim` command
-- See all supported languages
-- Get support if needed
+- Shows the exact kick screen
+- No 12-minute timer - rejoin immediately!
+- Great for testing translations
 
 ---
 
-## ❓ Got questions or just wanna say hi?
+## ⚙️ Configuration
 
-Feel free to contact me on Discord:
-```
-CiscoCodes
+```yaml
+# config.yml
+debug-mode: false              # Detailed debug logging
+log-player-locations: false    # Log player country/city (default: OFF)
 ```
 
 ---
 
-## �️W Technical Details
+## 🛠️ Technical Details
 
 ### Requirements
-- **Minecraft Version**: 1.21+ (may work on older versions)
-- **Server Software**: Paper, Spigot, Purpur
-- **Java Version**: 21+
+- **Minecraft**: 1.21+ (may work on older versions)
+- **Server**: Paper, Spigot, Purpur
+- **Java**: 21+
 
 ### How It Works
 1. **Location Detection**: Uses IP geolocation APIs (ip-api.com, ipinfo.io)
-2. **Prayer Times**: Fetches from Aladhan API with Umm Al-Qura calculation method
+2. **Prayer Times**: Fetches from Aladhan API with Umm Al-Qura method
 3. **Timezone Handling**: Automatically converts to player's local timezone
 4. **Caching**: Locations cached for 24 hours to reduce API calls
-5. **Privacy**: Local/private IPs are skipped (plugin disabled for localhost)
+5. **Privacy**: Local/private IPs are skipped automatically
 
 ### Files Created
 ```
 plugins/FaithBreak/
-├── config.yml              # Plugin configuration
-├── player_languages.yml    # Player language preferences
-└── messages/               # Language files (10 languages)
-    ├── en_US.yml
-    ├── ar_SA.yml
-    ├── ur_PK.yml
-    ├── es_ES.yml
-    ├── fr_FR.yml
-    ├── id_ID.yml
-    ├── hi_IN.yml
-    ├── de_DE.yml
-    ├── pl_PL.yml
-    └── nl_NL.yml
+├── config.yml              # Plugin settings
+├── optout.yml              # Persistent opt-out data (NEW!)
+├── player_languages.yml    # Language preferences
+└── messages/               # 10 language files
 ```
 
 ### Permissions
-- `faithbreak.nonmuslim` - Use `/non-muslim` command (default: true)
-- `faithbreak.language` - Use `/language` command (default: true)
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `faithbreak.nonmuslim` | Use `/non-muslim` | true |
+| `faithbreak.use` | Use `/fb` commands | true |
+| `faithbreak.admin` | Use `/fb kick` test | op |
 
-### Performance
-- **Memory**: ~500KB for all language files
-- **CPU**: Negligible (checks run every minute)
-- **Network**: Minimal (cached geolocation, API calls only when needed)
+---
+
+## ❓ Frequently Asked Questions
+
+**Q: Will my opt-out be remembered after I log off?**  
+A: Yes! As of v1.3.2, your `/non-muslim` preference is saved permanently to a file.
+
+**Q: Is my location logged to console?**  
+A: Not by default! Location logging is OFF unless the server admin enables `log-player-locations` in config.
+
+**Q: How do I test the kick screen?**  
+A: Use `/fb kick Fajr` (or any prayer name) as an OP - you can rejoin immediately!
+
+**Q: I'm not Muslim, will I get kicked?**  
+A: No! Non-Muslim players only receive gentle reminders. Use `/non-muslim` to opt out completely.
+
+**Q: Can I change the language?**  
+A: Yes! Use `/fb lang <code>` to change manually, or let the plugin auto-detect from your Minecraft client.
+
+**Q: What if I'm on a VPN or local network?**  
+A: The plugin detects local/private IPs and disables itself for those connections.
+
+**Q: How do I add a new language?**  
+A: Copy any existing language file from `plugins/FaithBreak/messages/`, rename it, translate, and restart!
+
+---
+
+## 🎯 **Why Update to v1.3.2?**
+
+**If you've experienced:**
+- Having to re-type `/non-muslim` after every server restart
+- Console spam with player locations
+- Wanting to test the kick screen without waiting 12 minutes
+
+**v1.3.2 fixes all of this!**
 
 ---
 
 ## 🙏 Why I Made This
 
 I made this plugin to help my fellow **Muslim brothers and sisters** stay on track with their **prayer times**.  
-Let’s be real — it’s easy to get completely lost in Minecraft and forget 😅  
+Let's be real — it's easy to get completely lost in Minecraft and forget 😅  
 This plugin gives a gentle nudge at the right moment 🕌⏰
 
 Also, fun fact: this plugin is **automatically bundled** with every plugin I make.  
-If you haven’t checked out my other creations yet, go explore them on [Modrinth](https://modrinth.com/user/CalastioTech) — who knows, you might find your next favorite plugin! 😉✨
-
----
-
-## ❓ Frequently Asked Questions
-
-**Q: I'm not Muslim, will I get kicked?**  
-A: No! Non-Muslim players only receive gentle reminder messages in chat. You can also use `/non-muslim` to opt out completely.
-
-**Q: Can I change the language?**  
-A: Yes! Use `/language <code>` to change manually. The plugin auto-detects your Minecraft client language, but you can override it anytime.
-
-**Q: What if I'm playing from a VPN or local network?**  
-A: The plugin automatically detects local/private IPs and disables itself for those connections. No kicks, no reminders.
-
-**Q: How accurate are the prayer times?**  
-A: Very accurate! We use the Aladhan API with Umm Al-Qura calculation method (used in Saudi Arabia) and automatically adjust for your timezone.
-
-**Q: Can I disable the plugin for certain players?**  
-A: Yes! Players can use `/non-muslim` to opt out. Server admins can also remove the `faithbreak.nonmuslim` permission to prevent opt-outs.
-
-**Q: Does this work on Bedrock Edition?**  
-A: The plugin works on Java Edition servers. Bedrock players connecting via Geyser may have limited clickable button support, but all other features work.
-
-**Q: How do I add a new language?**  
-A: Copy any existing language file from `plugins/FaithBreak/messages/`, rename it to your language code (e.g., `tr_TR.yml` for Turkish), translate all messages, and restart the server!
-
-**Q: Is my data collected or tracked?**  
-A: No! The plugin only uses your IP for geolocation (cached locally for 24 hours). No data is sent to external servers except for prayer time calculations. The "Learn More" button is a simple link with no tracking.
-
----
-
-## 🌟 What's New in Latest Version
-
-### Version 1.2.1+
-- ✨ **10 Languages Supported**: English, Arabic, Urdu, Spanish, French, Indonesian, Hindi, German, Polish, Dutch
-- 🔗 **Clickable "Learn More" Button**: Gold button in kick messages opens this Modrinth page
-- 🌍 **Automatic Language Detection**: Detects Minecraft client language on join
-- 🎨 **Rich Text Components**: Beautiful, colorful messages with Adventure API
-- 📝 **Manual Language Switching**: `/language` command with tab completion
-- 💾 **Persistent Preferences**: Language choices saved across restarts
-- 🔄 **Fallback System**: Missing translations automatically fall back to English
-- 🎯 **Localized Prayer Names**: Prayer names translated in Arabic, Urdu, Indonesian, Hindi, German, Polish
+Check out my other creations on [Modrinth](https://modrinth.com/user/CalastioTech)! 😉✨
 
 ---
 
@@ -233,39 +239,19 @@ If you like my work, consider buying me a coffee:
 
 ### English Player
 ```
-§cIt's Fajr prayer time! Please take a break.
-§cYou can rejoin in 12 minutes.
+It's Fajr prayer time! Please take a break.
+You can rejoin in 12 minutes.
 
-§6§l[Learn More]
+Learn More: https://modrinth.com/plugin/faithbreak
 ```
 
 ### Arabic Player
 ```
-§cحان وقت صلاة الفجر! يرجى أخذ استراحة.
-§cيمكنك العودة بعد 12 دقيقة.
+حان وقت صلاة الفجر! يرجى أخذ استراحة.
+يمكنك العودة بعد 12 دقيقة.
 
-§6§l[معرفة المزيد]
+معرفة المزيد: https://modrinth.com/plugin/faithbreak
 ```
-
-### Urdu Player
-```
-§cفجر نماز کا وقت ہے! براہ کرم وقفہ لیں۔
-§cآپ 12 منٹ میں دوبارہ شامل ہو سکتے ہیں۔
-
-§6§l[مزید جانیں]
-```
-
-*The gold button is clickable and opens this page!*
-
----
-
-## 🎯 Perfect For
-
-- 🕌 **Islamic Minecraft Servers**: Encourage prayer breaks for your community
-- 🌍 **International Servers**: Multi-language support for diverse players
-- 👨‍👩‍👧‍👦 **Family-Friendly Servers**: Promote healthy gaming habits
-- 🏫 **Educational Servers**: Teach time management and religious respect
-- 💼 **Professional Servers**: Show cultural awareness and inclusivity
 
 ---
 
@@ -274,26 +260,22 @@ If you like my work, consider buying me a coffee:
 Want to help improve FaithBreak?
 
 - 🌐 **Translate**: Add your language by creating a new `.yml` file
-- 🐛 **Report Bugs**: Open an issue on GitHub or contact me on Discord
-- 💡 **Suggest Features**: Share your ideas for improvements
+- 🐛 **Report Bugs**: Contact me on Discord
+- 💡 **Suggest Features**: Share your ideas!
 - ⭐ **Star & Share**: Help others discover this plugin!
 
 ---
 
-## 📜 License & Credits
+## ❓ Got questions?
 
-- **Plugin**: FaithBreak by CiscoCodes
-- **Prayer Times API**: [Aladhan API](https://aladhan.com/prayer-times-api)
-- **Geolocation**: ip-api.com, ipinfo.io
-- **License**: Open source (check repository for details)
+Contact me on Discord: `CiscoCodes`
 
 ---
 
 ## 🔗 Useful Links
 
 - 📦 [Download Latest Version](https://modrinth.com/plugin/faithbreak/versions)
-- 💬 Discord Support - Contact: `CiscoCodes`
-- 📖 [Full Documentation](https://modrinth.com/plugin/faithbreak)
+- 💬 Discord Support: `CiscoCodes`
 - ⭐ [Rate & Review](https://modrinth.com/plugin/faithbreak)
 
 ---
