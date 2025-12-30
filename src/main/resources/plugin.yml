@@ -8,15 +8,17 @@ commands:
     description: Toggle opting out of prayer time kicks and reminders.
     usage: /non-muslim
     permission: faithbreak.nonmuslim
-  language:
-    description: Change your language preference.
-    usage: /language [language_code]
-    aliases: [lang]
-    permission: faithbreak.language
+  fb:
+    description: FaithBreak commands.
+    usage: /fb <lang|kick> [args]
+    permission: faithbreak.use
 permissions:
   faithbreak.nonmuslim:
     description: Allows players to use the /non-muslim command to opt out of prayer time actions.
     default: true
-  faithbreak.language:
-    description: Allows players to change their language preference.
+  faithbreak.use:
+    description: Allows access to FaithBreak commands.
     default: true
+  faithbreak.admin:
+    description: Allows access to FaithBreak admin commands (kick test).
+    default: op

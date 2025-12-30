@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,7 +38,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.faithBreak.i18n.LanguageManager;
 import com.faithBreak.listeners.PlayerJoinListener;
-import com.faithBreak.commands.LanguageCommand;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -106,10 +106,99 @@ public final class FaithBreak extends JavaPlugin implements Listener {
             return true;
         });
 
-        // Register /language command
-        LanguageCommand languageCommand = new LanguageCommand(this, languageManager);
-        this.getCommand("language").setExecutor(languageCommand);
-        this.getCommand("language").setTabCompleter(languageCommand);
+        // Register /fb command (combines lang and admin commands)
+        this.getCommand("fb").setExecutor((sender, command, label, args) -> {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("This command can only be used by players.");
+                return true;
+            }
+
+            Player player = (Player) sender;
+
+            if (args.length < 1) {
+                player.sendMessage("§eUsage: /fb lang [language_code] §7- Change language");
+                player.sendMessage("§eUsage: /fb kick <prayer_name> §7- Test kick screen (OP only)");
+                return true;
+            }
+
+            if (args[0].equalsIgnoreCase("lang")) {
+                // Handle language subcommand
+                if (args.length == 1) {
+                    // Show current language and available languages
+                    String currentLang = languageManager.getPlayerLanguage(player.getUniqueId());
+                    String currentLangName = languageManager.getLanguageName(currentLang);
+                    
+                    player.sendMessage(languageManager.getMessage(player, "commands.language.current", currentLangName));
+                    player.sendMessage(languageManager.getMessage(player, "commands.language.available"));
+                    
+                    for (String langCode : languageManager.getAvailableLanguages()) {
+                        String langName = languageManager.getLanguageName(langCode);
+                        player.sendMessage("§7- §e" + langCode + " §7(" + langName + ")");
+                    }
+                } else {
+                    // Change language
+                    String newLanguage = args[1];
+                    
+                    // Try case-insensitive match
+                    String matchedLanguage = null;
+                    for (String langCode : languageManager.getAvailableLanguages()) {
+                        if (langCode.equalsIgnoreCase(newLanguage)) {
+                            matchedLanguage = langCode;
+                            break;
+                        }
+                    }
+
+                    if (matchedLanguage == null) {
+                        player.sendMessage(languageManager.getMessage(player, "commands.language.invalid", newLanguage));
+                    } else {
+                        languageManager.setPlayerLanguage(player.getUniqueId(), matchedLanguage);
+                        String langName = languageManager.getLanguageName(matchedLanguage);
+                        player.sendMessage(languageManager.getMessage(player, "commands.language.changed", langName));
+                    }
+                }
+                return true;
+            }
+
+            if (args[0].equalsIgnoreCase("kick")) {
+                // Check for admin permission
+                if (!player.hasPermission("faithbreak.admin")) {
+                    player.sendMessage("§cYou don't have permission to use this command.");
+                    return true;
+                }
+                String prayerName = args.length > 1 ? args[1] : "Test";
+                // Kick with the visual but don't add to kickedPlayers map (no timer)
+                player.kick(createKickMessageWithLink(player, prayerName, 12));
+                return true;
+            }
+
+            player.sendMessage("§eUsage: /fb lang [language_code] §7- Change language");
+            player.sendMessage("§eUsage: /fb kick <prayer_name> §7- Test kick screen (OP only)");
+            return true;
+        });
+
+        // Tab completer for /fb
+        this.getCommand("fb").setTabCompleter((sender, command, alias, args) -> {
+            if (args.length == 1) {
+                List<String> completions = new ArrayList<>(Arrays.asList("lang"));
+                if (sender.hasPermission("faithbreak.admin")) {
+                    completions.add("kick");
+                }
+                return completions.stream()
+                        .filter(s -> s.startsWith(args[0].toLowerCase()))
+                        .collect(Collectors.toList());
+            } else if (args.length == 2) {
+                if (args[0].equalsIgnoreCase("kick") && sender.hasPermission("faithbreak.admin")) {
+                    return Arrays.asList("Fajr", "Dhuhr", "Asr", "Maghrib", "Isha").stream()
+                            .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
+                            .collect(Collectors.toList());
+                } else if (args[0].equalsIgnoreCase("lang")) {
+                    return languageManager.getAvailableLanguages().stream()
+                            .filter(lang -> lang.toLowerCase().startsWith(args[1].toLowerCase()))
+                            .collect(Collectors.toList());
+                }
+            }
+            return Arrays.asList();
+        });
 
         // Start prayer time checker task
         startPrayerTimeChecker();
