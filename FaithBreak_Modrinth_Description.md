@@ -23,7 +23,7 @@ Warriors of faith, **v1.3.1** is here with **persistent opt-out preferences** an
 
 ---
 
-## ✨ **What's New in v1.3.2** ✨
+## ✨ **What's New in v1.3.1** ✨
 
 ### 🎯 Major Improvements
 * **feat:** 💾 **PERSISTENT OPT-OUT** - `/non-muslim` preference now saved to file! Survives server restarts and player reconnects
