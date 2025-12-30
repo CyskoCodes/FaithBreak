@@ -285,13 +285,14 @@ public final class FaithBreak extends JavaPlugin implements Listener {
         // Create the main message
         Component message = Component.text(kickMsg + "\n" + rejoinMsg + "\n\n");
 
-        // Create clickable "Learn More" button
-        Component learnMoreButton = Component.text("[" + learnMoreText + "]")
-                .color(NamedTextColor.GOLD)
-                .decorate(TextDecoration.BOLD)
-                .clickEvent(ClickEvent.openUrl("https://modrinth.com/plugin/faithbreak"));
+        // Create clickable link
+        Component learnMoreLink = Component.text(learnMoreText + ": ")
+                .append(Component.text("https://modrinth.com/plugin/faithbreak")
+                        .color(NamedTextColor.AQUA)
+                        .decorate(TextDecoration.UNDERLINED)
+                        .clickEvent(ClickEvent.openUrl("https://modrinth.com/plugin/faithbreak")));
 
-        return message.append(learnMoreButton);
+        return message.append(learnMoreLink);
     }
 
     @EventHandler
